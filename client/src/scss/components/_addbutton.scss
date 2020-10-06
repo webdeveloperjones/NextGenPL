@@ -1,0 +1,54 @@
+#addButton {
+    position: fixed;
+    // top: 12px;
+    $size: 60px;
+    top: calc(100vh - #{$size} - 12px);
+    right: 14px;
+    height: $size;
+    width: $size;
+    border-radius: 30px;
+    z-index: 10;
+    overflow: hidden;
+    outline: none;
+    border: none;
+    font-family: inherit;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $pl_success;
+    box-shadow: $dropshadow;
+    &::after {
+        font-size: 40px;
+        font-weight: bold;
+        font-family: inherit;
+        content: "+";
+        color: $pl_white;
+    }
+
+    &.open {
+        animation: colourShift $add_form_animate_time;
+        background-color: $pl_danger;
+
+        &::after {
+            animation: rotatePlus $add_form_animate_time;
+            transform: rotate(45deg) translate(1px, -1px);
+        }
+    }
+
+    @keyframes colourShift {
+        from {
+            background-color: $pl_success;
+        }
+        to {
+            background-color: $pl_danger;
+        }
+    }
+    @keyframes rotatePlus {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(45deg) translate(1px, -1px);
+        }
+    }
+}

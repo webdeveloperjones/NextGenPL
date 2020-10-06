@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  react:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./client:/client
+
+    command: npm run start
+    restart: always
+    tty: true
+    links:
+      - nodejs
+    networks:
+      - webappnetwork
+    depends_on:
+      - nodejs
+  nodejs:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./server:/server
+      # - /home/ubuntu/addeliverynetwork/server/node_modules
+    ports:
+      - 3001:3001
+      - 9229:9229
+
+    command: npm run dev
+    env_file: ./server/.env
+    depends_on:
+      - db
+    restart: unless-stopped
+    tty: true
+    links:
+      - db
+    networks:
+      - webappnetwork
+
+  db:
+    image: mongo
+    ports:
+      - 27017:27017
+    restart: always
+    command: mongod
+
+    volumes:
+      - data-node:/data/db
+    networks:
+      - webappnetwork
+
+networks:
+  webappnetwork:
+    driver: bridge
+
+volumes:
+  data-node:

@@ -1,0 +1,16 @@
+#header{
+    height: $navbarHeight;
+    background-color: $pl_primary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: $dropshadow;
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    .header--title{
+        font-size: 46px;
+        font-weight: bold;
+        color: $pl_white;
+    }
+}
