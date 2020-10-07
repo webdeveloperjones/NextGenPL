@@ -2,7 +2,7 @@
     position: fixed;
     // top: 12px;
     $size: 60px;
-    top: calc(100vh - #{$size} - 12px);
+    top: calc(100vh - #{$size} - #{$size} - 12px);
     right: 14px;
     height: $size;
     width: $size;
@@ -23,6 +23,7 @@
         font-family: inherit;
         content: "+";
         color: $pl_white;
+        transform: translate(1px, -1px);
     }
 
     &.open {
@@ -31,7 +32,7 @@
 
         &::after {
             animation: rotatePlus $add_form_animate_time;
-            transform: rotate(45deg) translate(1px, -1px);
+            transform: rotate(405deg) translate(1px, -1px);
         }
     }
 
@@ -45,10 +46,10 @@
     }
     @keyframes rotatePlus {
         from {
-            transform: rotate(0deg);
+            transform: rotate(0deg) translate(1px, -1px);
         }
         to {
-            transform: rotate(45deg) translate(1px, -1px);
+            transform: rotate(405deg) translate(1px, -1px);
         }
     }
 }

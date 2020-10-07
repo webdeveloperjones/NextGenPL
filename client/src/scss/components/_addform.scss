@@ -7,13 +7,96 @@
     right: 0;
     background-color: rgba(0, 0, 0, 0.7);
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-end;
+    // align-items: center;
 
     animation: bgfade $add_form_animate_time;
-    .test-block{
-        
+    .addForm--wrapper {
+        margin-bottom: 150px;
+        // width: 100%;
+        min-height: 240px;
+        border-radius: 20px;
+        background-color: $pl_white;
         animation: fgfade $add_form_animate_time;
+        overflow: hidden;
+        padding: 30px;
+        #addForm--form {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            .addForm--form--field {
+                display: flex;
+                flex-direction: column;
+                font-size: 18px;
+                font-weight: bold;
+
+                &.error {
+                    input {
+                        border: 2px solid $pl_danger;
+                        // border-color: $pl_danger;
+                    }
+                    &::after {
+                        font-weight: normal;
+                        font-size: 16px;
+                        color: $pl_danger;
+                        content: "Required field";
+                    }
+                }
+
+                &.field-weight {
+                    label {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: baseline;
+                    }
+                    input {
+                        font-size: 16px;
+                        padding: 4px 10px;
+                        &:focus {
+                            outline: none;
+                            border: 1px solid rgb(118, 118, 118);
+                            border-radius: 2px;
+                            border-bottom: 2px solid $pl_warning;
+                        }
+                    }
+                }
+
+                &.field-image {
+                    input {
+                        font-size: 16px;
+                    }
+                }
+
+                label {
+                    margin-bottom: 10px;
+                    .required {
+                        font-weight: normal;
+                        font-size: 16px;
+                        color: $pl_danger;
+                    }
+                }
+            }
+            #addForm--form--button {
+                font-size: 18px;
+                font-weight: bold;
+                color: $pl_white;
+                outline: none;
+                border: none;
+                background-color: $pl_info;
+                border-radius: 20px;
+                padding: 10px 0px;
+                cursor: pointer;
+
+                &.uploading{
+                    background-color: $pl_warning;
+                }
+                &.done{
+                    background-color: $pl_success;
+                }
+            }
+        }
     }
     @keyframes bgfade {
         from {
@@ -25,12 +108,15 @@
     }
 
     @keyframes fgfade {
-        from{
-            margin-top: 100vh;
+        0% {
+            margin-bottom: -100vh;
             opacity: 0;
         }
-        to{
-            margin-top: 0px;
+        80% {
+            margin-bottom: 170px;
+        }
+        100% {
+            margin-bottom: 150px;
             opacity: 1;
         }
     }

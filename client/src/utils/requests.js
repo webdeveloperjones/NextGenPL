@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BaseURL = process.env.NODE_ENV === 'development' ? 'http://server:3001/api/daily' : '/api/daily'
+const BaseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:3001/api/daily' : '/api/daily'
 // const BaseURL = config.ENV === 'DEV' ? 'http://localhost:3001/api/daily' : 
 const getAllWeights = async () => {
     console.log("Getting Weights...")

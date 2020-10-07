@@ -1,0 +1,60 @@
+#main--chart {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: $dropshadow;
+    background-color: $pl_white;
+    margin-bottom: 15px;
+}
+
+.main--chart--buttons {
+    display: flex;
+    justify-content: space-between;
+    .main--chart--buttons--btn {
+        border: none;
+        outline: none;
+        width: 30%;
+
+        color: $pl_text_black;
+        font-weight: bold;
+        font-size: 18px;
+        border-radius: 20px;
+        padding: 11px 0px;
+        box-shadow: $dropshadow;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // animation: fadeout .5s;
+        $chartAnimTime: 0.3s;
+        &.selected {
+            animation: fade $chartAnimTime;
+            background-color: $pl_success;
+            color: $pl_white;
+        }
+        &.closed {
+            animation: fadeout $chartAnimTime;
+            background-color: $pl_white;
+            color: $pl_text_black;
+        }
+
+        @keyframes fade {
+            from {
+                background-color: $pl_white;
+                color: $pl_text_black;
+            }
+            to {
+                background-color: $pl_success;
+                color: $pl_white;
+            }
+        }
+        @keyframes fadeout {
+            from {
+                background-color: $pl_success;
+                color: $pl_white;
+            }
+            to {
+                background-color: $pl_white;
+                color: $pl_text_black;
+            }
+        }
+    }
+}

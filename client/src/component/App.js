@@ -13,7 +13,7 @@ function App() {
       <AddButton show={setShowform} />
       {
         showform
-          ? <AddForm />
+          ? <AddForm show={setShowform}/>
           : false
       }
       <Main />

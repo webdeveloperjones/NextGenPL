@@ -4,8 +4,9 @@ import React from 'react';
 const Header = () => {
   return(
     <header id="header">
-      <div class="header--title">
-        ProperLife
+      <div className="header--title">
+        {/* ProperLife */}
+        PL
       </div>
     </header>
   )

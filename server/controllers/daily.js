@@ -15,6 +15,7 @@ AWS.config.update({
     region: 'us-east-1'
 })
 const s3 = new AWS.S3()
+console.log(config.S3_BUCKET)
 const upload = multer({
     storage: multerS3({
         s3: s3,
@@ -25,7 +26,7 @@ const upload = multer({
         contentType: multerS3.AUTO_CONTENT_TYPE,
         // Set key/ filename as original uploaded name
         key: function (req, file, cb) {
-            cb(null, `bodPodUpload-${Date.now()}${path.extname(file.originalname)}`)
+            cb(null, `bodepotUpload-${Date.now()}${path.extname(file.originalname)}`)
         }
     })
 })
@@ -37,6 +38,7 @@ dailyRouter.get('/', async (req, res) => {
 })
 
 dailyRouter.post('/', upload.single('file'), async (req, res, next) => {
+    console.log('do we even get here?')
     const s3url = req.file ? req.file.location : ''
     const body = req.body
     const weight = Number(body.weight)
@@ -45,6 +47,8 @@ dailyRouter.post('/', upload.single('file'), async (req, res, next) => {
         return
     }
     const date = new Date()
+    // let randomNumber = Math.floor(Math.random() * 90)
+    // date.setDate(date.getDate() - randomNumber)
     const formattedDate = Number(date.getTime())
 
     const daily = new Daily({
@@ -52,6 +56,8 @@ dailyRouter.post('/', upload.single('file'), async (req, res, next) => {
         Date: formattedDate,
         s3url: s3url
     })
+
+    console.log(daily)
 
     const result = await daily.save()
 
