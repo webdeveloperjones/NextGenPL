@@ -3,45 +3,18 @@ import { Chart } from "react-google-charts";
 import { getAllWeights } from '../utils/requests'
 import { useDispatch, useSelector } from 'react-redux'
 import { setEntries } from '../reducers/entryReducer'
-
-
-const ChartButton = ({ label, selected, setTimeFrame, timeFrame }) => {
-    const handleClick = e => {
-        console.log(e.currentTarget)
-
-        let allBtns = document.getElementsByClassName('main--chart--buttons--btn')
-        for (let i = 0; i < allBtns.length; ++i) {
-            if (allBtns[i].classList.contains('selected')) {
-                allBtns[i].classList.toggle('selected')
-                allBtns[i].classList.toggle('closed')
-            }
-        }
-        let thisBtn = e.currentTarget
-        if (thisBtn.classList.contains('closed')) {
-            thisBtn.classList.toggle('closed')
-        }
-        thisBtn.classList.toggle('selected')
-
-        let newMin = new Date()
-        newMin.setDate(newMin.getDate() - timeFrame)
-        setTimeFrame(newMin)
-
-
-    }
-
-    const classstr = selected ? "main--chart--buttons--btn selected" : "main--chart--buttons--btn"
-    return (
-        <button onClick={handleClick} className={classstr}><span>{label}</span></button>
-    )
-}
+import ChartButton from './ChartButton'
+import MainTable from './MainTable'
 
 
 
 const Main = () => {
     const dispatch = useDispatch()
 
+    const defaultChartStart = 7
+
     let initAxisMin = new Date()
-    initAxisMin.setDate(initAxisMin.getDate() - 7)
+    initAxisMin.setDate(initAxisMin.getDate() - defaultChartStart)
 
     const [axisMin, setAxisMin] = useState(initAxisMin)
     useEffect(() => {
@@ -53,8 +26,6 @@ const Main = () => {
     }, [dispatch])
 
     let data = useSelector(state => state.entries)
-
-    console.log('amin', axisMin)
     if (data.length) {
         return (
             <main id="main" className="container">
@@ -96,16 +67,18 @@ const Main = () => {
                             vAxis: {
                                 viewWindowMode: 'pretty'
                             },
-                            colors: ['#3B7C12'],
+                            colors: ['#025C93'],
+                            // colors: ['#3B7C12'],
                             pointsVisible: true
                         }}
                     />
                 </div>
                 <div className="main--chart--buttons">
-                    <ChartButton timeFrame={7} setTimeFrame={setAxisMin} label="Week" selected={true} />
+                    <ChartButton timeFrame={defaultChartStart} setTimeFrame={setAxisMin} label="Week" selected={true} />
                     <ChartButton timeFrame={30} setTimeFrame={setAxisMin} label="Month" />
                     <ChartButton timeFrame={90} setTimeFrame={setAxisMin} label="3 Months" />
                 </div>
+                <MainTable />
             </main>
         )
     }

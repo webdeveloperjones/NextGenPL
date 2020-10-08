@@ -9,6 +9,7 @@
 .main--chart--buttons {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 45px;
     .main--chart--buttons--btn {
         border: none;
         outline: none;
@@ -25,6 +26,7 @@
         align-items: center;
         // animation: fadeout .5s;
         $chartAnimTime: 0.3s;
+        background-color: $pl_white;
         &.selected {
             animation: fade $chartAnimTime;
             background-color: $pl_success;

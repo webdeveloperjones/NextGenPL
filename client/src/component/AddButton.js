@@ -14,7 +14,6 @@ const AddButton = ({ show }) => {
     }
   }
   return (
-
     <button onClick={handleClick} id="addButton"></button>
   )
 }

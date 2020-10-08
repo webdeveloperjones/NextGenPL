@@ -4,8 +4,8 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import reducer from './reducers/rootReducer'
 import App from './component/App'
-import './css/style.css'
-// import './style.min.css'
+// import './css/style.css'
+import './css/style.min.css'
 
 const store = createStore(reducer)
 store.subscribe(() => console.log("Store: ", store.getState()))

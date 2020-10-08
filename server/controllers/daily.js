@@ -15,7 +15,6 @@ AWS.config.update({
     region: 'us-east-1'
 })
 const s3 = new AWS.S3()
-console.log(config.S3_BUCKET)
 const upload = multer({
     storage: multerS3({
         s3: s3,

@@ -1,10 +1,14 @@
 import React, { useState } from 'react'
 import { addRecord } from '../utils/requests'
+import { useDispatch } from 'react-redux'
+import { addEntry } from '../reducers/entryReducer'
+
 
 
 const AddForm = ({ show }) => {
     const [weight, setWeight] = useState("")
     const [img, setImg] = useState([])
+    const dispatch = useDispatch()
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -29,6 +33,9 @@ const AddForm = ({ show }) => {
             alert('error of some kind')
             return
         }
+        dispatch(addEntry(res.data))
+        console.log(res)
+
         uploadBtn.innerText = "Done!"
         uploadBtn.classList.toggle('uploading')
         uploadBtn.classList.toggle('done')
