@@ -8,8 +8,8 @@ services:
     volumes:
       - ./server:/server
       # - /home/ubuntu/addeliverynetwork/server/node_modules
-    ports:
-      - 80:3001
+      #ports:
+      #- 80:3001
 
     command: npm run start
     env_file: ./server/.env
@@ -34,9 +34,44 @@ services:
     networks:
       - webappnetwork
 
+  webserver:
+    image: nginx:mainline-alpine
+    container_name: webserver
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - web-root:/var/www/html
+      - ./nginx-conf:/etc/nginx/conf.d
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+    depends_on:
+      - nodejs
+    networks:
+      - webappnetwork
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - certbot-var:/var/lib/letsencrypt
+      - web-root:/var/www/html
+    depends_on:
+      - webserver
+    command: certonly --webroot --webroot-path=/var/www/html --email webdeveloper.jones@gmail.com --agree-tos --no-eff-email --staging -d properlife.app  -d www.properlife.app
+
 networks:
   webappnetwork:
     driver: bridge
 
 volumes:
   data-node:
+  certbot-etc:
+  certbot-var:
+  web-root:
+    driver: local
+    driver_opts:
+      type: none
+      device: root/NextGenPL/server/build/
+      o: bind
