@@ -4,12 +4,12 @@ services:
   nodejs:
     build:
       context: ./server
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     volumes:
       - ./server:/server
       # - /home/ubuntu/addeliverynetwork/server/node_modules
     ports:
-      - 3001:3001
+      - 80:3001
 
     command: npm run start
     env_file: ./server/.env
